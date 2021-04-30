@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Sports Leagues</title>
+	</head>
+	<body>
+
+		<form action="" method="post">
+			{% csrf_token %}
+			Elegir un filtro
+			<select name="filtro" id="" >
+				<!-- <option disabled selected value="0"> -- Elija un Filtro -- </option> -->
+				<option value="1">1. todas las ligas de béisbol</option>
+				<option value="2">2. todas las ligas de mujeres</option>
+				<option value="3">3. todas las ligas donde el deporte es cualquier tipo de hockey</option>
+				<option value="4">4. todas las ligas donde el deporte no sea football</option>
+				<option value="5">5. todas las ligas que se llaman "Conference"</option>
+				<option value="6">6. todas las ligas de la región Atlantic </option>
+				<option value="7">7. todos los equipos con sede en Dallas</option>
+				<option value="8">8. todos los equipos nombraron los Raptors</option>
+				<option value="9">9. todos los equipos cuya ubicación incluye "Ciudad"</option>
+				<option value="10">10. todos los equipos cuyos nombres comienzan con "T"</option>
+				<option value="11">11. todos los equipos, ordenados alfabéticamente por ubicación</option>
+				<option value="12">12. todos los equipos, ordenados por nombre de equipo en orden alfabético inverso</option>
+				<option value="13">13. cada jugador con apellido "Cooper"</option>
+				<option value="14">14. cada jugador con apellido "Joshua"</option>
+				<option value="15">15. todos los jugadores con el apellido "Cooper" EXCEPTO aquellos con "Joshua" como primer nombre</option>
+				<option value="16">16. todos los jugadores con nombre "Alexander" O nombre "Wyatt"</option>
+				
+			</select>
+			<button type="submit">Filtrar</button>
+		</form>
+
+		<a href="/">Reset</a>
+
+		<h1 {{title_leagues}} >Leagues</h1>
+		<ol>
+			{% for league in leagues %}
+				<li>{{league.name}}</li>
+			{% empty %}
+				<p {{title_leagues}}>No leagues found.  Try <code>python manage.py loaddata data.json</code>, or, if that doesn't work, going <a href="{% url 'make_data' %}">here</a> (but be prepared to wait).</p>
+			{% endfor %}
+		</ol>
+		<h1 {{title_teams}}>Teams</h1>
+		<ol>
+			{% for team in teams %}
+				<li>{{team.location}} {{team.team_name}}</li>
+			{% empty %}
+				<p {{title_teams}}>No teams found.  Try <code>python manage.py loaddata data.json</code>, or, if that doesn't work, going <a href="{% url 'make_data' %}">here</a> (but be prepared to wait).</p>
+			{% endfor %}
+		</ol>
+		<h1 {{title_players}} >Players</h1>
+		<ol>
+			{% for player in players %}
+				<li>{{player.first_name}} {{player.last_name}}</li>
+			{% empty %}
+				<p {{title_players}}>No teams found.  Try <code>python manage.py loaddata data.json</code>, or, if that doesn't work, going <a href="{% url 'make_data' %}">here</a> (but be prepared to wait).</p>
+			{% endfor %}
+		</ol>
+	</body>
+</html>
